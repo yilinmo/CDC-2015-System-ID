@@ -15,13 +15,13 @@ Such an attack model is very similar to the Known-Plaintext Attack (KPA) studied
 
 % In the system and control theory, consider a feedback configuration in Fig.~\ref{fig:feedback}, this kind of attack can be modelled as only the output is available to the attacker.
 
-%{\bf Ciphertext-only attack:} it is assumed that only the cipher text is available to the attacker.  In the noiseless case, Yuan et. al. \cite{yeautomatica, yeACC} proposed an algorithm that can predict the future output by using historical values of $y$. 
+%{\bf Ciphertext-only attack:} it is assumed that only the cipher text is available to the attacker.  In the noiseless case, Yuan et. al. \cite{yeautomatica,yeACC} proposed an algorithm that can predict the future output by using historical values of $y$. 
 
 %{\bf Chosen-plaintext attack:} in this scenario, the attacker is able to choose a number of plaintexts to be enciphered and have access to the resulting ciphertext. This corresponds to the experimental design in system identification. 
 
 As a result, we will focus on KPA in this paper. The main contributions of the paper are twofold:
 \begin{enumerate}
-  \item We provide a necessary condition and a sufficient condition, under which the system is vulnerable to KPA, i.e., the adversary can successfully identify the system model $\mathcal G(z)$. The results can be viewed as an application of classical system identification \cite{anderson1, anderson2, anderson3, Ljung, keith, anderson} for the closed-loop system described in Section~\ref{sec:sysid}.  
+  \item We provide a necessary condition and a sufficient condition, under which the system is vulnerable to KPA, i.e., the adversary can successfully identify the system model $\mathcal G(z)$. The results can be viewed as an application of classical system identification \cite{anderson1,anderson2,anderson3,Ljung,keith,anderson} for the closed-loop system described in Section~\ref{sec:sysid}.  
 
   \item We design a countermeasure to KPA by using a ``low-rank'' controller design strategy for $\mK(z)$ while trading off the $LQG$ control performance.
 \end{enumerate}
