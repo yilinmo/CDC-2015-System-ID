@@ -12,5 +12,6 @@ counter.tex
 optimalk.tex
 optimalF.tex
 simulation.tex
+figures/cdc15sysid-figure2/cdc15sysid-figure2.png
 conclusion.tex
 appendix.tex
