@@ -7,6 +7,7 @@ KPA.tex
 identifiability.tex
 algorithm.tex
 attack.tex
+figures/cdc15sysid-figure1/cdc15sysid-figure1.png
 counter.tex
 optimalk.tex
 optimalF.tex
