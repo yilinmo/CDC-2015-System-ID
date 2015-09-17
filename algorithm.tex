@@ -18,15 +18,16 @@
 
   Any system of globally-minimal degree is said to be \emph{globally minimal}. Anderson \cite{anderson} provides an algebraic characterization of all realizations of all spectral factors as follows. Minimal realizations of $\mS$ are related to globally-minimal realizations of spectral factors of $\Psi$ by the following lemma.
 
-  \begin{lemma}[\cite{anderson}] \label{lemma:andlem}
+  \begin{lemma}[\cite{anderson}]
+  \label{lemma:andlem}
     Let $(A,B_s,C,D_s)$ be a minimal realization of the positive-real matrix $\mS(s)$ of \eqref{Zdef}, then the system $(A,B,C,D)$ is a globally-minimal realization of a spectral factor of $\Psi(s)$, i.e., $\mW(s)$ if and only if the following equations hold:
-    \begin{equation} \label{eq:and}
-      \begin{aligned}
-	RA^T + AR &= -BB^T\\
-	RC^T &= B_s - BD^T\\
+
+      \begin{align}
+	RA^T + AR &= -BB^T\nonumber\\
+	RC^T &= B_s - BD^T\nonumber\\
 	2D_s &= DD^T
-      \end{aligned}
-    \end{equation}
+	 \label{eq:and}
+      \end{align}
     \noindent for some positive-definite and symmetric matrix ${R\in \RR^{n \times n}}$.
   \end{lemma}
 
