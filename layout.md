@@ -6,7 +6,7 @@ model.tex
 KPA.tex
 identifiability.tex
 algorithm.tex
-begin_algorithm_caption_Identification_algorithm__.tex
+caption_Identification_algorithm_for_mG__.tex
 attack.tex
 figures/cdc15sysid-figure1/cdc15sysid-figure1.png
 counter.tex
