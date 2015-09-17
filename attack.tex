@@ -1,0 +1,45 @@
+  \subsection{What can the attacker do after KPA?}
+  \label{sec:stealthy}
+  In this section, we briefly describe a stealthy attack on the CPS after the adversary has obtained the transfer function $\mG(z)$. The goal of this subsection is to demonstrate that KPA can enable other attacks discussed in the literature. For more detailed discuss on stealthy attack, please refer to~\cite{Pasqualetti2013}. 
+
+  We assume that the adversary compromised a subset of actuators and sensors and can change the corresponding control inputs and sensor measurements respectively. As a result, the system equation becomes:
+  \begin{align*}
+    x(k+1) &= Ax(k) + B\left[u(k) + \Gamma_u u^a(k)\right]+w(k),\\
+    y(k) &= Cx(k) + v(k) + \Gamma_y y^a(k),\\
+    u(k) &= \mathcal K(z)y(k),
+  \end{align*}
+  where $u^a(k)$ and $y^a(k)$ is the bias on the control inputs and the sensor measurements injected by the adversary at time $k$. $\Gamma_u$ ($\Gamma_y$) is a diagonal matrix with binary diagonal elements, such that the $i$th diagonal elements is $1$ if and only if the $i$th actuator (sensor) is compromised by the attacker. Since the matrices $\Gamma_u$ and $\Gamma_y$ represent the set of compromised actuators and sensors, they are known to the attacker. Let us define
+  \begin{align*}
+    \mG_a(z) \triangleq C(zI-A)^{-1}B\Gamma_u = \mG(z)\Gamma_u. 
+  \end{align*}
+
+  Clearly, the whole trajectory of the sensor measurements $y$ is a function of the noise process $w,\,v$, the initial condition $x(0)$ and the adversary's action $u^a,\,y^a$. Therefore, we shall denote it as 
+  \begin{align*}
+    y = f(w,v,x(0),u^a,y^a). 
+  \end{align*}
+  Notice that we omitted the control input $u$ since $u$ can be calculated from $y$.
+
+  Now if there exists a scalar $z_*\in \mathbb C$, and two vectors $u_*\in \mathbb C^p$ and $y_*\in \mathbb C^m$, such that
+  \begin{align*}
+    \mG_a(z_*)u_* + \Gamma_y y_* = 0,
+  \end{align*}
+  then the adversary can choose
+  \begin{align}
+    u^a(k) = z_*^k u_*,\,y^a(k) = z_*^k y_*.
+    \label{eq:stealthyinput}
+  \end{align}
+
+  Let us define $x_* \triangleq (z_*I-A)^{-1}B\Gamma_u u_*$. One can verify that
+  \begin{align*}
+    f(w,v,x(0)+x_*,u^a,y^a) = f(w,v,x(0),0,0).
+  \end{align*}
+  Therefore, the attack is stealthy since given the sensory data $y$, the controller cannot distinguish the following two cases from the sensory data:
+  \begin{enumerate}
+    \item the initial condition is $x(0)+x_*$ and the adversary injected $u^a$ and $y^a$ defined in \eqref{eq:stealthyinput};
+    \item the initial condition is $x(0)$ and no adversary exists.
+  \end{enumerate}
+
+  \begin{remark}
+    It is worth noticing that the adversary only need to compute $z_*,\,u_*$ and $y_*$ to launch the attack, which only requires the knowledge of $\mG(z),\,\Gamma_u$ and $\Gamma_y$. 
+  \end{remark}
+

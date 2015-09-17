@@ -1,0 +1,159 @@
+\appendix
+% \comments{Yilin: is it necessary? The following lemma is needed to prove of Theorem~\ref{lemma:idgk}.
+% \begin{lemma}\label{lemma:lt}
+%   [Liouville's theorem] Every holomorphic function $f$ for which there exists a positive number $M$ such that $|f(z)| \le M$ for all $z\in\mathbb{C}$ is constant.
+% \end{lemma}}
+\begin{proof}[Proof of Lemma~\ref{lemma:idgk}]
+  From the definition, $\Phi_{y,u}(w)$ is real rational and positive semi-definite for $|z|=1$. The closed-loop transfer function $\mC(z)$ is stable and minimum phase. Therefore, $\mC(z)$ is analytic in $|z|\ge 1$. Since $\mG, \mH$ are strictly proper, we have $\mG(\infty) = 0,\,\mH(\infty)=0$. On the other hand, since $\mK$ is proper and rational, $\mK(\infty)$ exists. Hence
+  \begin{align*}
+    \lim_{z\rightarrow\infty} \mC(z)= \begin{bmatrix} 
+      0 & I \\
+      0 & \mathcal K(\infty)
+    \end{bmatrix}.
+  \end{align*}
+
+  Assume that both $\mC,~D=\begin{bmatrix}
+    Q & 0 \\ 
+    0 & R
+  \end{bmatrix}$ and $\hat \mC,~\hat D=\begin{bmatrix}
+    \hat Q & 0 \\
+    0 & \hat R
+  \end{bmatrix}$ give the same $\Phi_{y,u}$ satisfying 
+  \begin{enumerate}
+  \item $D$ and $\hat D$ are block diagonal and positive definite matrices; \item both $\mC$ and $\hat \mC$ are stable and minimum phase,
+  \end{enumerate}
+  then there exists a paraunitary matrix $\mathcal V(z)$ such that \cite{anderson3}
+  \begin{align}
+    \hat \mC(z)=\mC(z)\mathcal V(z),\label{eq:c1c2}\\
+    \hat D= \mathcal V(z) D\mathcal V^*(z).\label{eq:q1q2}
+  \end{align}
+
+  From \eqref{eq:c1c2}, since both $\mC(z)$ and $\hat \mC(z)$ are stable and minimum phase, $\mathcal V(z)$ is stable and minimum phase, which implies that $\mathcal V(z)$ is a constant matrix independent of $z$ \cite{anderson, hayden}. Therefore, we denote it simply as $V$. Take $z\rightarrow\infty$ on both sides of \eqref{eq:c1c2} yields
+  \begin{equation}
+    \begin{bmatrix}
+      0 & I \\
+      0 & \hat \mK(\infty) 
+    \end{bmatrix}= \begin{bmatrix}
+      0 & I \\
+      0 & \mK(\infty)
+    \end{bmatrix}\lim_{z\rightarrow\infty}V,
+  \end{equation}
+  which leads to 
+  \begin{align}
+    V_{21}=0,\, V_{22}=I.
+  \end{align}
+  Since $VV^* = I$, we have $V_{12} = 0$ and $V_{11}V_{11}^* = I$. As a result, \eqref{eq:c1c2} and \eqref{eq:q1q2} imply that
+  \begin{equation}
+    \begin{aligned}
+      &\hat\mC=\mC\begin{bmatrix}V_{11} & 0 \\ 0 & I \end{bmatrix}
+      \Leftrightarrow\left\{
+        \begin{array}{r@{\;=\;}l}
+          \hat\mC_{11} & \mC_{11} V_{11}\\
+          \hat\mC_{12} & \mC_{12} \\
+          \hat\mC_{21} & \mC_{21}V_{11}\\ 
+          \hat\mC_{22} & \mC_{22} 
+        \end{array}
+      \right. ~~\text{and}\\
+      &\hat{D}=\begin{bmatrix}V^*_{11} & 0 \\ 0 & I \end{bmatrix}D\begin{bmatrix}V_{11} & 0 \\ 0 & I \end{bmatrix}
+      \Leftrightarrow\left\{
+        \begin{array}{r@{\;=\;}l}
+          \hat{Q} & V^*_{11}QV_{11}\\
+          \hat{R} & R
+        \end{array}\right..
+    \end{aligned}
+  \end{equation}
+  %	\comments{Yilin: The original proof. Is it necessary?}
+  % 
+  %	Due to symmetry, $ V^*(z)$ is stable and minimum phase. Take $z\rightarrow\infty$ on both sides of \eqref{eq:c1c2} yields
+  %	\begin{equation}
+  %	  \begin{bmatrix}
+  %	    0 & I \\
+  %	    0 & \hat \mK(\infty) 
+  %	  \end{bmatrix}= \begin{bmatrix}
+  %	    0 & I \\
+  %	    0 & \mK(\infty)
+  %	  \end{bmatrix}\lim_{z\rightarrow\infty}V(z),
+  %	\end{equation}
+  %	which leads to 
+  %	\begin{align}
+  %	  \lim_{z\rightarrow\infty}V_{21}(z)=0,\, \lim_{z\rightarrow\infty}V_{22}(z)=I.
+  %	\end{align}
+  % 
+  %	Given the following facts:
+  %	\begin{itemize}
+  % \item[a)] since $V(z)$ is stable and minimum phase, $V_{21}(z)$ is analytic and nonsingular $|z|>1$;
+  % \item[b)] similarly since $V^*(z)$ is stable and minimum phase, $V^*_{21}(z)=V^T_{21}(z^{-1})$ is analytic and nonsingular $|z|>1$, in other words, $V_{21}(z)$ is analytic and nonsingular $|z|<1$;
+  % \item[c)] since $V(z)D_2V^*(z)=D_1$ on $|z|=1$, $V(z)$ is bounded there so is $V_{21}(z)$. 
+  %	\end{itemize} 
+  % 
+  %	Hence $V_{21}(z)$ is analytic everywhere with $\lim_{z\rightarrow\infty}V_{21}(z)=0$. By Lemma~\ref{lemma:lt}, $V_{21}(z)=0,~\forall z\in\mathbb{C}$. Following similar deduction, we can obtain $V_{22}(z)=I~ \forall z\in\mathbb{C}$. 
+  % 
+  %	Since $V(z)$ is paraunitary, $V(z)V^*(z)=I$, which implies that $V_{12}(z)=0$ and $V_{11}(z)V^*_{11}(z)=I$. Therefore, $V_{11}(z)$ is a stable, minimum-phase paraunitary matrix, which implies that $V_{11}(z)$ must be a constant unitary matrix independent of $z$. Thus, we denote it as $V_{11}$. From \eqref{eq:q1q2}, it can be shown that 
+  %	\begin{equation}
+  %	  \begin{aligned}
+  %	    V_{11}Q_2V_{11}^T=Q_1.
+  %	  \end{aligned}
+  %	\end{equation}
+  % 
+  %	Based on the derivation, for any $\hat{\mC}$ and $\hat{D}$ that satisfy 	  
+  %	\begin{equation}
+  %	  \begin{aligned}
+  %	    &\hat\mC=\mC\begin{bmatrix}V_{11} & 0 \\ 0 & I \end{bmatrix}
+  % \Leftrightarrow\left\{
+  % \begin{array}{r@{\;=\;}l}
+  % \hat\mC_{11} & \mC_{11} V_{11}\\
+  % \hat\mC_{12} & \mC_{12} \\
+  % \hat\mC_{21} & \mC_{21}V_{11}\\ 
+  % \hat\mC_{22} & \mC_{22} 
+  % \end{array}
+  % \right. ~~\text{and}\\
+  % &\hat{D}=\begin{bmatrix}V^*_{11} & 0 \\ 0 & I \end{bmatrix}D\begin{bmatrix}V_{11} & 0 \\ 0 & I \end{bmatrix}
+  % \Leftrightarrow\left\{
+  % \begin{array}{r@{\;=\;}l}
+  % \hat{Q} & V^*_{11}QV_{11}\\
+  % \hat{R} & R
+  % \end{array}\right..
+  % \end{aligned}
+  % \end{equation}
+  % 
+  % Finally, combining Proposition~\ref{prop:feedback}, we can obtain the identifiability condition for admissible $\Sigma$, which completes the proof.
+\end{proof}
+
+
+\begin{proof}[Proof to Lemma~\ref{lemma:X}]
+  Assume that $(X,\,\tilde S)$ is the optimal solution for \eqref{eq:optimization3}. Since $\tilde S\geq g_X(\tilde S)$ and $g_X$ is monotonically non-decreasing in $\tilde S$, we know that
+  \begin{align*}
+    \tilde S\geq g_X(\tilde S)\geq g_X^{(2)}(\tilde S)\geq \dots \geq 0,
+  \end{align*}
+  where 
+  \begin{align*}
+    g_X^{(1)}(\tilde S) \triangleq g_X(\tilde S),\, g_X^{(n+1)}(\tilde S) \triangleq g_X\left(g_X^{(n)}(\tilde S)\right).
+  \end{align*}
+  Since $g_X^{(n)}(\tilde S)$ is monotonically decreasing and positive semidefinite, it will converge to a matrix $\tilde S^* = g_X(\tilde S^*)\leq \tilde S$. Therefore, $(X,\,\tilde S^*)$ is also the optimal solution of \eqref{eq:optimization3}, which finishes the proof.
+\end{proof}
+
+
+%	\begin{proof}[Proof to Lemma~\ref{lemma:pro}]
+%	  It is easy to see that $\mathbb X$ is convex and closed. Assume that $X$ is a symmetric projection matrix with rank $q$. Since $X^2 = X$, $X$ has $q$ eigenvalues to be $1$ and all the other eigenvalues to be $0$. As a result, we know that
+%	  \begin{align*}
+%	    0\preceq X\preceq I,\,\tr(X) = q. 
+%	  \end{align*}
+%	  Therefore, $\mathbb X$ contains all the symmetric projection matrix of rank $q$. Now suppose that $X$ is an extreme point of $\mathbb X$. In other words, if $X$ can be written as
+%	  \begin{align*}
+%	    X = \alpha X_1 + (1-\alpha)X_2, 
+%	  \end{align*}
+%	  where $X_1,X_2\in \mathbb X$ and $0\leq \alpha\leq 1$, then $\alpha$ must be either $0$ or $1$. We will prove that an extreme point $X$ must be a projection matrix by contradiction. Suppose that $X\in\mathbb X$ is an extreme point and $X$ is not a projection matrix. We know that $X$ can be written as
+%	  \begin{align*}
+%	    X = V^T \Lambda V, 
+%	  \end{align*}
+%	  where $V$ is an orthonormal matrix and $\Lambda = \diag(\lambda_1,\dots,\lambda_p)$, such that $0\leq \lambda_i\leq 1$ and $\sum_{i=1}^p \lambda_i = q$. Since $X$ is not a projection matrix, there must be at least two $\lambda_i$s that are neither $0$ nor $1$. Without loss of generality, let us assume that $0< \lambda_1\leq \lambda_2<1$. Hence, there exists $\delta > 0$, such that
+%	  \begin{align*}
+%	    \lambda_1 - \delta \geq 0,\,\lambda_2 + \delta \leq 1.
+%	  \end{align*}
+%	  Therefore, we can define 
+%	  \begin{align*}
+%	    X_1 &= V^T\diag(\lambda_1-\delta,\lambda_2+\delta,\lambda_3,\dots,\lambda_p)V,\\
+%	    X_2 &= V^T\diag(\lambda_1+\delta,\lambda_2-\delta,\lambda_3,\dots,\lambda_p)V.
+%	  \end{align*}
+%	  It is easy to check that $X_1,\,X_2\in \mathbb X$ and $X = 0.5X_1+0.5X_2$, which contradicts with the fact that $X$ is an extreme point. Therefore, only projection matrices can be the extreme points of $\mathbb X$. Now by Krein-Milman Theorem, we know that $\mathbb X$ is the closed convex hull of projection matrices.
+%	\end{proof}

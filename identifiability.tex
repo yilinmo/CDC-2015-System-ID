@@ -1,0 +1,142 @@
+\subsection{On the identifiability of $\mG(z),~\mK(z)$}\label{sec:idGK}
+This subsection is devoted to deriving the identifiability condition of $\mG(z)$ and $\mK(z)$. The identifiability of such systems have been investigated based on spectral factorization. 
+
+\begin{mydef}
+  %Let $e_{i}(k)$ be a discrete-time zero-mean, jointly wide-sense stationary random processes and the vector
+  Let $e(k)=(e_1(k),..,e_{N}(k))^T$ be a $N$-dimensional discrete-time, zero-mean, wide-sense stationary random process. For any $\tau \in \mathbb{Z}$, define its autocorrelation function $R_e(\tau)$ and power spectral density $\Phi_e(z)$ as
+  \begin{align*}		
+    R_{e}(\tau)&\triangleq \mathbb{E}[e(k)e^T(k+\tau)].\\
+    \Phi_{e}(z)&\triangleq\sum_{\tau=-\infty}^{\infty}R_{e}(\tau)z^{-\tau} .
+  \end{align*}
+  %Given a $N$-dimensional discrete-time, zero-mean, wide-sense stationary random process $e(k)=(e_1(k),..,e_{N}(k))^T$, we
+\end{mydef}
+Since we assume that the closed-loop system is asymptotically stable, $\left[\begin{smallmatrix}y(k)\\u(k)\end{smallmatrix}\right]$ converges to a stationary process. Hence, the adversary can compute (or estimate) the joint power spectral density $\Phi_{y,u}$ for the limiting stationary process, if it observes the system for a sufficient amount of time. By \eqref{eq:utoy} and \eqref{eq:ytou}, we know that $\Phi_{y,u}$ satisfies the following equation:
+  \begin{equation}
+    \Phi_{y,u}(z)=\mC(z)\begin{bmatrix} 
+      Q & 0 \\ 0 & R 
+    \end{bmatrix}\mC^*(z).
+  \end{equation} 
+  where the closed-loop transfer function $\mC(z)$ has the following form
+  \begin{align}
+    \mC(z) &=\begin{bmatrix}
+      \mC_{11}(z) & \mC_{12}(z)\\
+      \mC_{21}(z) & \mC_{22}(z)
+    \end{bmatrix}\label{eq:Cz}\\
+    &\triangleq\begin{bmatrix}
+      (I-\mG\mK)^{-1}\mH & (I-\mG\mK)^{-1}\\
+      \mK(I-\mG\mK)^{-1}\mH & \mK(I-\mG\mK)^{-1}
+    \end{bmatrix}.\nonumber
+  \end{align} 
+
+  \begin{myass}\label{ass:stable}
+    $\mC(z)$ is asymptotically stable and minimum phase, i.e., all the poles and zeros of $\mC(z)$ lie strictly inside the unit disk.
+  \end{myass}
+
+  \begin{remark}
+    This is a commonly adopted assumption for input-output stability and internal stability.
+  \end{remark}
+  %\begin{mydef}
+  %  Given the spectrum $\Phi_{y,u}(z)$, we shall say $\Sigma\triangleq\left(\mG, \mK, \mH, Q, R\right)$ are admissible to $\Phi_{y,u}$ if any element in $\Sigma$ is consistent to the prior knowledge and gives $\Phi_{y,u}$ following the computation above. 
+  %\end{mydef}
+
+  %\begin{mydef}
+  %  We say the feedback system $\mG(z)$ and $\mK(z)$ is identifiable from the input-output data $(y,u)$ if for any admissible $\hat{\Sigma}\triangleq\left(\hat{\mG}, \hat{\mK}, \hat{\mH}, \hat{Q}, \hat{R}\right)$ that $\hat{\mG}=\mG$ and $\hat{\mK}=\mK$.
+  %\end{mydef}
+  We first consider the identifiability of $\mC(z)$ from the joint spectral density $\Phi_{y,u}$. 
+
+  \begin{lemma}\label{lemma:idgk}
+    Under the Assumption~\ref{ass:wp} and \ref{ass:stable}, if there exists $\mC(z),\,Q,\,\,R$ and $\hat \mC(z),\,\hat Q,\,\hat R$ that lead to the same $\Phi_{y,u}$, then there exists a unitary matrix $V_{11}$, such that
+    \begin{align}
+      \hat \mC_{11}(z) &= \mC_{11}(z)V_{11},
+      &\hat \mC_{12}(z)&= \mC_{12}(z),\nonumber\\ 
+      \hat \mC_{21}(z) &= \mC_{21}(z)V_{11},
+      &\hat \mC_{22}(z)&= \mC_{22}(z)\nonumber,\\ 
+      \hat Q &=V^*_{11}QV_{11},
+      &\hat R &= R.\label{eq:Cidentifability}
+    \end{align}
+  \end{lemma}
+%  \begin{proof}
+%    See Appendix.
+%  \end{proof}
+
+  We now consider the identifiability of $\mG(z)$, $\mK(z)$ and $\mH(z)$ from $\mC(z)$. Before continuing on, we need the following definition:
+  \begin{mydef}
+    We define the normal rank of a transfer matrix $\mathcal A(z)$ to be the maximum rank of $\mathcal A(z)$ over all $z\in \mathbb{C}$. 
+  \end{mydef}
+
+  \begin{proposition}\label{prop:feedback}
+    Given $\mC(z)$, the following transfer functions can be uniquely specified :
+    \begin{equation}\label{eq:khg}
+      \begin{aligned}
+	\mK(z)&=\mC_{22}(z)\mC^{-1}_{12}(z),\\
+	\mH(z)&= \mC^{-1}_{12}(z)\mC_{11}(z),\\
+	\mG(z)\mK(z)&=I-\mC^{-1}_{12}(z).
+      \end{aligned}
+    \end{equation}
+    If $\mK(z)$ has full normal row rank then $\mG(z)$ can be uniquely determined from the following equality
+    \begin{equation}
+      \mG(z)=(I-\mC^{-1}_{12}(z))\mK^{\dagger}(z),
+    \end{equation}  
+    where $\mK^{\dagger}(z)$ is the unique transfer matrix satisfies $\mK(z)\mK^{\dagger}(z)=I$.
+  \end{proposition}
+%  \begin{proof}
+%    This is straightforward from the definition of $\mC(z)$.
+%  \end{proof}
+
+  %\begin{lemma}\label{lemma:sf}(\cite{anderson1}) Let $\Phi(z)=\Phi^*(z)$ be real rational, nonsingular almost everywhere and nonnegative for $|z|=1$, there exists a unique real rational $\bar{\mC}$ which is analytic in $|z|\ge1$ and $\bar{\mC}(\infty)=I$ and a unique positive definite $\bar{D}$ such that 
+  %\begin{equation}
+  %\Phi(z)=\bar{\mC}(z)\bar{D}\bar{\mC}^*(z).
+  %\end{equation} 
+  %\end{lemma}
+
+
+  Based on Lemma~\ref{lemma:idgk} and Proposition~\ref{prop:feedback}, we have the following theorem about the identifiability of $\mG(z)$ and $\mK(z)$.
+
+  \begin{theorem}\label{thm:gk}
+    Consider the feedback control scheme described in Sec~\ref{sec:model}. Under the Assumption~\ref{ass:wp} and \ref{ass:stable}, the following statements hold:
+    \begin{itemize}
+      \item $\mG(z)\mK(z)$ and $\mK(z)$ are uniquely identifiable;
+      \item $R$ is uniquely identifiable;
+      \item $\mH(z)$ and $Q$ can be identified up to the following transformation
+	\begin{equation}
+	  \begin{aligned}
+	    \hat{\mH}(z)&=\mH(z) V_{11}\\
+	    \hat{Q}&=V^*_{11}QV_{11},
+	  \end{aligned}
+	\end{equation}
+	in which $V_{11}$ is a unitary matrix. 
+    \end{itemize}
+    Furthermore, if $\mK(z)$ if full normal row rank, then $\mG(z)$ is uniquely identifiable.
+  \end{theorem}
+%  \begin{proof}
+%    Let $\mC(z)$ be the true closed-loop transfer function. By Lemma~\ref{lemma:idgk}, any $\hat \mC(z)$ we derive from $\Phi_{y,u}$ must satisfy \eqref{eq:Cidentifability}. Hence, by Proposition~\ref{prop:feedback}, 
+%    \begin{align*}
+%      \hat \mK(z) = \hat \mC_{22}(z) \hat \mC_{12}^{-1}(z) = \mC_{22}(z) \mC_{12}^{-1}(z) = \mK(z),
+%    \end{align*}
+%    which implies that $\mK(z)$ is uniquely identifiable. The other statements can be proved by similar arguments.
+%  \end{proof}
+
+  We now provide a sufficient condition under which the system is not identifiable by the adversary:
+  \begin{theorem}
+    \label{thm:nonidentifiable}
+    Let $w(k),\,v(k)$ be a realization of the noise process and $x(k),\,y(k),\,u(k)$ be the corresponding system state, sensor measurements and control input that satisfy \eqref{eq:systemdescription}, \eqref{eq:sensordescription} and \eqref{eq:utoy}. If $\mK(z)$ can be factorized into
+    \begin{align}
+      \mK(z) = F\tilde \mK(z), 
+      \label{eq:factorization}
+    \end{align}
+    where $F\in \mathbb R^{p\times q}$ is a constant matrix with $q < p$ and $\tilde \mK(z)\in \mathbb C^{q\times m}$ is a transfer function, then there exists a matrix $\hat B\neq B$, such that the following equalities hold for $\hat B$:
+    \begin{align*}
+      x(k+1) &= Ax(k) + \hat Bu(k) + w(k),\\
+      y(k) & = Cx(k) + v(k),\,u(k) = \mK(z)y(k).
+    \end{align*}
+  \end{theorem}
+%  \begin{proof}
+%    Since $q < p$, $F$ is not full row rank, which implies the existence of a real matrix $\Delta B\neq 0$, such that $\Delta BF =0$. One can verify that $\hat B = B + \Delta B$ is the required matrix.
+%  \end{proof}
+
+  \begin{remark}
+    Clearly, if the factorization described by \eqref{eq:factorization} is possible, then the adversary cannot tell the difference between the physical system model $\mG(z) = C(zI-A)^{-1}B$ and $\hat \mG(z) = C(zI-A)^{-1}\hat B$ since they share the same input and output relation. This is due to the fact that the controller only inject the control input that lies in the column space of $F$ and hence there are some ambiguities in the $B$ matrix.
+
+    It is worth noticing that \eqref{eq:factorization} implies that $\mK(z)$ is not full normal row rank. In fact, the normal rank of $\mK(z)$ is at most $q$. On the other hand, a non full normal row rank matrix $\mK(z)$ can always be decomposed as $\mK(z) = \mathcal F(z)\tilde \mK(z)$, where $\mathcal F(z)$ is a $p$ by $q$ transfer matrix with $q<p$. Therefore, there exists a gap between Theorem~\ref{thm:gk} and \ref{thm:nonidentifiable}. This is due to the fact that even though $\mK(z)$ is not right invertible, which implies that the adversary cannot directly compute $\mG(z)$ from $\mG(z)\mK(z)$ and $\mK(z)$, the adversary could potentially use side information to infer $\mG(z)$ (for example, $\mG(z) = \mH(z)B$.) We are planning to investigate the gap and tighten Theorem~\ref{thm:gk} and Theorem~\ref{thm:nonidentifiable} in the future work.
+  \end{remark}
+

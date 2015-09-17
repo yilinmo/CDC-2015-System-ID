@@ -1,0 +1,89 @@
+\section{System model} \label{sec:model}
+We model the physical system has a linear time invariant system, which takes the following form:
+\begin{align}
+  \label{eq:systemdescription}
+  x(k+1) &= Ax(k) + Bu(k) +  w(k), \\
+  y(k) &= C x(k) + v(k),
+  \label{eq:sensordescription}
+\end{align}
+where $x(k) \in \mathbb R^n$, $u(k)\in \mathbb R^p$, $y(k)\in \mathbb R^m$ are the state, the control input and the sensor measurement at time $k$ respectively. $w(k)\in \mathbb R^n$, $v(k)\in \mathbb R^m$ are the process and measurement noise at time $k$. We assume that $w(k),\,v(k),\,x(0)$ are jointly independent zero mean Gaussian random variables with covariance $\Sigma$, $Q$ and $R$ respectively. We further assume that $Q,R\succ 0$ are strictly positive definite and $(A,B)$ is stabilizable and $(A,C)$ is detectable.
+
+%\begin{remark}
+%  At the first glance, it seems that our choice of estimator and controller are quite limited. However, all the analysis carried out can be easily generalised to any constant gain linear estimator and controller.
+%\end{remark}
+%\begin{myass} \label{assGM} The system $(A,B,C,D)$ is globally minimal. 
+%\end{myass}
+
+%%The open loop expression for the output 
+%%\begin{equation*}
+%%y(k)=\mG(z)u(k)+H_1(z)w(k),
+%%\end{equation*}
+%%We assume that the feedback control has the form that 
+%%\begin{equation*}
+%%u(k)= \mK(z)y(k)+H_2(z)v(k).
+%%\end{equation*}
+%%where $z^{-1}$ denotes the unit delay operator. 
+%%
+%%We can compute the joint spectral density
+%%\begin{equation}
+%%\Phi_{yu}(\omega)=C(z)\begin{bmatrix} Q & 0 \\ 0 & R \end{bmatrix}C^*(z)~ \text{and}~ z=e^{jw},
+%%\end{equation} 
+%%where the closed-loop transfer function
+%%\begin{equation}
+%%C(z)=\begin{bmatrix}
+%%(I-GK)^{-1}H_1 & G(I-KG)^{-1}H_2\\
+%%K(I-GK)^{-1}H_1 & (I-KG)^{-1}H_2
+%%\end{bmatrix}. 
+%%\end{equation} 
+%%
+%%The learning can be two-step procedure, 
+%%first, 
+%%
+%%Once the identifiability condition satisfies, we can then compute the 
+%
+%\Ye{yun... zhege configuration keyi identify G. ok, let's consider another configuration}
+% 
+%Consider systems defined by the following discrete-time Linear, Time-Invariant (LTI) plant:
+%\begin{equation}\label{eq:LTI00}
+%\begin{aligned}
+%x(k+1) &= Ax(k) + Bu(k)+ w(k) \\
+%y(k) &= Cx(k) + v(k)
+%\end{aligned}
+%\end{equation}
+%\noindent with input ${u(k) \in \RR^m}$, state ${x(k) \in \RR^n}$, output ${y(k) \in \RR^p}$, system matrices ${A \in \mathbb{R}^{n \times n}}$, ${B \in \mathbb{R}^{n \times m}}$, ${C \in \mathbb{R}^{p \times n}}$ and ${D \in \mathbb{R}^{p \times m}}$. 
+
+%\Ye{add intro to LQG }
+
+From system model in \eqref{eq:systemdescription}, we can write down the relation between sensor measurement $y$ and the control input $u$ and the noise process $w$ and $v$ as follows:
+\begin{equation}
+  y(k)=\mG(z)u(k)+\mH(z)w(k)+v(k),
+  \label{eq:utoy}
+\end{equation}
+in which $\mG(z)\triangleq C(zI-A)^{-1}B$ and $\mH(z)\triangleq C(zI-A)^{-1}$, and $z^{-1}$ is the unit delay. We assume that the controller is also a linear time invariant controller. Therefore, the control input can be written as 
+\begin{equation}
+  u(k)=\mK(z)y(k).
+  \label{eq:ytou}
+\end{equation}
+%in which $\mK(z)\triangleq L(zI-A+BL+KCA)^{-1}K$ \ye{check this}.
+
+%We assume that the feedback control has the form that 
+%\begin{equation*}
+%u(k)= \mK(z)y(k).
+%\end{equation*}
+%where $z^{-1}$ denotes the unit delay operator. 
+
+%Make the following conventional assumptions:
+%\begin{myass} \label{asse}The system is driven by unknown white noise $w(t)$ and $v(t)$ have a joint Gaussian distribution with zero mean and covariance 
+%\begin{equation}
+%\mathbb{E}\begin{bmatrix} w(k) \\ v(k) \end{bmatrix} \begin{bmatrix}w^T(\tau) & v^T(\tau)\end{bmatrix} = \begin{bmatrix} Q  & 0 \\ 0 & R\end{bmatrix} \delta(k-\tau).
+%\end{equation} 
+%\end{myass}
+We restrict the future discussions to the controller that satisfies the following assumption:
+\begin{myass}\label{ass:wp}[Controller]
+  The transfer function of the controller $\mK(z)$ is a proper rational function of $z$. Furthermore, the closed-loop system is asymptotically stable.
+\end{myass}
+\begin{remark}
+  If we assume that $\mK(z)$ is rational, then $\mK(z)$ being proper is equivalent to the controller being causal. Moreover, the limit $\lim_{z\rightarrow\infty}\mK(\infty)<\infty$ is well-defined. For the closed-loop system, since $\mG(z)$ is a strictly proper transfer function, it follows that $\lim_{z\rightarrow\infty} \mG(z)\mK(z) = 0$, which implies that $I-\mG(z)\mK(z)$ is invertible almost everywhere.
+\end{remark}
+
+We assume that an adversary passively observes the control input $u(k)$ and the sensory data $y(k)$ from time $0$ to $\infty$. The goal of the adversary is to infer the physical system model $\mG(z)$ from $u(k)$ and $y(k)$.

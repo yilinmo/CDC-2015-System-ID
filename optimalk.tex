@@ -1,0 +1,57 @@
+
+  \subsection{Optimal $\tilde {\mathcal K}(z)$}
+
+  Since $u(k) = F \tilde u(k)$, we can rewrite the system equation as
+  \begin{align*}
+    x(k+1) = A x(k) + \tilde B\tilde u(k) + w(k),
+  \end{align*}
+  where $\tilde B\triangleq BF$. Furthermore, the objective function of LQG can be rewritten as
+  \begin{align*}
+    &J = \limsup_{T\rightarrow \infty}\frac{1}{T}\min_{\tilde u(k)}\mathbb{E}\left[\sum_{k=0}^{T-1} x(k)^TWx(k)+\tilde u(k)^T\tilde U\tilde u(k)\right],
+  \end{align*}
+  where $\tilde U \triangleq F^TUF\in \mathbb R^{q\times q}$. Therefore, the optimal control is given by a Kalman filter and a LQR controller~\cite{Schenato:2007dh}:
+  \subsubsection*{Kalman Filter}
+  The state estimation of the Kalman filter (with a fixed gain) is given by:
+  \begin{align*}
+    \hat x(k)& = \hat x(k|k - 1)  + K (y(k)  - C \hat x (k|k - 1) ) ,\\
+    \hat x (k + 1|k) & = A \hat x(k) +Bu(k).
+  \end{align*}
+  where
+$    K= P C^T (CP C^T  + R)^{ - 1}, $
+  and $P$ is the fixed point of the following Riccati equation:
+  \begin{align*}
+    P = APA^T+Q - APC^T(CPC^T+R)^{-1}CPA^T.
+  \end{align*}
+  \subsubsection*{LQR controller}
+  The optimal control can then be derived as a linear function of the state estimate:
+  \begin{align}
+    \tilde u(k) = \tilde L \hat x(k),
+  \end{align}
+  where
+  \begin{align*}
+    \tilde L = -(\tilde B^T\tilde S \tilde B + \tilde U)^{-1}\tilde B^T\tilde S A,
+  \end{align*}
+  and $\tilde S$ is the solution of the following Riccati equation
+  \begin{align}
+    \tilde S =  A^T \tilde SA+W - A^T\tilde S\tilde B(\tilde B^T\tilde S\tilde B+\tilde U)^{-1}\tilde B^T \tilde SA.
+    \label{eq:tildeS}
+  \end{align}
+
+  The corresponding $\tilde K(z)$ is given by
+  \begin{align*}
+    \tilde K(z) =  z\tilde L\left[zI - (I-KC)(A+B\tilde L)\right]^{-1}K.
+  \end{align*}
+  The corresponding LQG cost is given by
+  \begin{align}
+    J^*& = \tr(\tilde SQ) + \tr[(W+A^T\tilde SA-\tilde S)(P-KCP)] \nonumber\\
+    &= \tr(\tilde S Y)+ \tr[W(P-KCP)] ,
+    \label{eq:optlqgcost}
+  \end{align}
+  where 
+  \begin{equation}
+    \begin{split}
+      Y &\triangleq Q+A(P-KCP)A^T-(P-KCP) \\
+      &= PC^T(CPC^T+R)^{-1}CP\succeq 0.
+    \end{split}
+  \end{equation}
+

@@ -1,0 +1,162 @@
+  \subsection{Optimal $F$}
+  Now we consider how to design the optimal $F$ matrix in order to minimize the LQG cost. Since the second term on the RHS of \eqref{eq:optlqgcost} is independent of $F$, the optimization problem can be formulated as the following optimization problem: 
+  \begin{align}
+    &\mathop{\textrm{minimize}}\limits_{F\in\mathbb R^{p\times q}}&
+    & \tr(\tilde SY). \label{eq:optimization}
+  \end{align}
+
+  By applying matrix inversion lemma on the RHS of \eqref{eq:tildeS}, we have
+  \begin{align}
+    \tilde S = A^T\left(\tilde S^{-1} + \tilde B \tilde U^{-1} \tilde B^T  \right)^{-1}A + W,
+    \label{eq:tildeS2}
+  \end{align}
+  where
+  \begin{align*}
+    &\tilde B\tilde U^{-1}\tilde B^T = BF\left(F^TUF\right)^{-1}F^TB \\
+    &= B U^{-1/2} \left[U^{1/2}F\left( F^TUF \right)^{-1}F^TU^{1/2} \right] U^{-1/2}B^T.
+  \end{align*}
+  Let us denote
+  \begin{equation}
+    \begin{split}
+      X \triangleq  U^{1/2}F\left( F^TUF \right)^{-1}F^TU^{1/2},\, \bar B \triangleq BU^{-1/2}.
+    \end{split}
+    \label{eq:defX}
+  \end{equation}
+  It is easy to verify that $X^2 = X$ and $X=X^T$. Hence $X$ is a symmetric projection matrix. Furthermore, $\rank(X) = \rank(F) = q$.
+
+  On the other hand, assume that $X$ is a symmetric projection matrix of rank $q$. Let $v_1,\dots,v_q$ to be the orthonormal basis of the column space of $X$. Then the following $F$ will satisfy \eqref{eq:defX}:
+  \begin{align}
+    F = U^{-1/2} \begin{bmatrix}
+      v_1 & \dots&v_q
+    \end{bmatrix}.
+    \label{eq:XtoF}
+  \end{align}
+
+  Therefore, instead of optimizing over $F$, the optimization problem \eqref{eq:optimization} can be manipulated into
+  \begin{align}
+    &\mathop{\textrm{minimize}}\limits_{X\in\mathbb S^p}&
+    & \tr(\tilde SY) \label{eq:optimization2}\\
+    &\textrm{subject to}&
+    &\tilde S = g_X(\tilde S), \nonumber\\
+    &&
+    &X = X^T,\,X^2 = X,\,\rank(X) = q,\nonumber
+  \end{align}
+  where
+  \begin{equation}
+    g_X(\tilde S) \triangleq A^T\left(\tilde S^{-1} +  \bar BX\bar B^T  \right)^{-1}A + W.
+    \label{eq:defriccati}
+  \end{equation}
+
+  We will first manipulate the constraint $\tilde S = g_X(\tilde S)$ into  Linear Matrix Inequalities (LMIs). To this end, we need the following intermediate result~\cite{Sinopoli:2004br}:
+  \begin{proposition}
+    For a fixed $X$, $g_X(\tilde S)$ is monotonically non-decreasing in $\tilde S$.
+  \end{proposition}
+
+
+  Consider the following optimization problem:
+  \begin{align}
+    &\mathop{\textrm{minimize}}\limits_{X\in\mathbb S^p,\,\tilde S}&
+    & \tr(\tilde SY) \label{eq:optimization3}\\
+    &\textrm{subject to}&
+    &\tilde S \geq g_X(\tilde S), \nonumber\\
+    &&
+    &X = X^T,\,X^2 = X,\,\rank(X) = q,\nonumber
+  \end{align}
+  where we relax the $\tilde S = g_X(\tilde S)$ constraint in \eqref{eq:optimization2} to $\tilde S\geq g_X(\tilde S)$. The next theorem proves that \eqref{eq:optimization2} and \eqref{eq:optimization3} are equivalent:
+  \begin{lemma}\label{lemma:X}
+    There exists an optimal solution $(X,\,\tilde S)$ for the optimization problem~\eqref{eq:optimization3} (not necessarily unique), such that the following equality holds
+    \begin{align*}
+      \tilde S = g_X(\tilde S).
+    \end{align*}
+  \end{lemma}
+%  \begin{proof}
+%    See Appendix.
+%  \end{proof}
+
+  We will now rewrite the constraint $\tilde S \geq g_X(\tilde S)$ as an LMI. To this end, let us take the inverse on both sides of $\tilde S\geq g_X(\tilde S)$ and apply matrix inversion lemma on the RHS, 
+  \begin{align}
+    \label{eq:lmi1}
+    W^{-1} - \tilde S^{-1} - W^{-1}A^TZ^{-1}AW^{-1}\succeq 0,
+  \end{align}
+  where
+  \begin{displaymath}
+    Z = \tilde S^{-1}+AW^{-1}A^T+\bar BX\bar B^T.
+  \end{displaymath}
+  Let us define $T =\tilde S^{-1}$, using Schur complement, we know that \eqref{eq:lmi1} is equivalent to:
+  \begin{align}
+    \label{eq:lmi2}
+    \begin{bmatrix}
+      T+AW^{-1}A^T+\bar BX\bar B^T & AW^{-1}\\
+      W^{-1}A^T & W^{-1} - T
+    \end{bmatrix} \succeq 0 .
+  \end{align}
+
+  Therefore, optimization problem~\eqref{eq:optimization3} is equivalent to:
+  \begin{align}
+    &\mathop{\textrm{minimize}}\limits_{X,\,\tilde S,\,T}&
+    & \tr(\tilde SY) \label{eq:optimization4}\\
+    &\textrm{subject to}&
+    &\begin{bmatrix}
+      \tilde S&I\\
+      I&T
+    \end{bmatrix}\succeq 0, \nonumber\\
+    &&
+    &\begin{bmatrix}
+      T+AW^{-1}A^T+\bar BX\bar B^T & AW^{-1}\\
+      W^{-1}A^T & W^{-1} - T
+    \end{bmatrix} \succeq 0 ,\nonumber\\
+    &&
+    &X = X^T,\,X^2 = X,\,\rank(X) = q.\nonumber
+  \end{align}
+  The first constraint is equivalent to $\tilde S\succeq T^{-1}\succeq 0$. Since we are minimizing $\tr(\tilde SY)$ and $Y\succeq 0$, the optimal solution must have $\tilde S = T^{-1}$.
+
+  We will now relax the constraint on $X$ into a convex constraint, which is given by the following lemma:
+  \begin{lemma}\label{lemma:pro}
+    The closed convex hull of all rank $q$ projection matrix $X\in \mathbb S^p$ is given by
+    \begin{align*}
+      \mathbb X = \{X\in \mathbb S^p: 0\preceq X\preceq I,\, \tr(X) = q\} .
+    \end{align*}
+  \end{lemma}
+%  \begin{proof}
+%    If $X$ is a symmetric projection matrix of rank $q$, then $X$ has $q$ eigenvalues at $1$ and $p-q$ eigenvalues at $0$. It is easy to verify that $\mathbb X$ is convex and contains $X$. One can further verify that the projection matrices are the extreme points of $\mathbb X$ and hence the lemma can be prove by Krein-Milman theorem. The detailed proof is omitted due to space limit. 
+%  \end{proof}
+%
+  Hence, by Lemma~\ref{lemma:pro}, the optimization problem can be relaxed to the following semidefinite programing optimization and solved efficiently:
+  \begin{align}
+    &\mathop{\textrm{minimize}}\limits_{X,\,\tilde S,\,T}&
+    & \tr(\tilde SY) \label{eq:optimization5}\\
+    &\textrm{subject to}&
+    &\begin{bmatrix}
+      \tilde S&I\\
+      I&T
+    \end{bmatrix}\succeq 0, \nonumber\\
+    &&
+    &\begin{bmatrix}
+      T+AW^{-1}A^T+\bar BX\bar B^T & AW^{-1}\\
+      W^{-1}A^T & W^{-1} - T
+    \end{bmatrix} \succeq 0 ,\nonumber\\
+    &&
+    &X = X^T,\,0\preceq X\preceq I,\,\text{tr}(X) = q.\nonumber
+  \end{align}
+
+  \begin{remark}
+    In summary, the optimization problem~\eqref{eq:optimization}, \eqref{eq:optimization2}, \eqref{eq:optimization3} and \eqref{eq:optimization4} are all equivalent. On the other hand, the constraint on $X$ in \eqref{eq:optimization4} is relaxed into a convex constraint in \eqref{eq:optimization5}. Therefore, the optimal value of \eqref{eq:optimization5} is no greater than the optimal value of \eqref{eq:optimization}, \eqref{eq:optimization2}, \eqref{eq:optimization3} and \eqref{eq:optimization4}. 
+  \end{remark}
+  Denote the optimal solution of \eqref{eq:optimization5} as $(X_*,\,\tilde S_*,\, T_*)$. Since we relaxed the constraint on $X$, $X_*$ is not necessarily a projection matrix. To derive a projection matrix from $X_*$, one can do an eigendecomposition and rewritten $X_*$ as
+  \begin{align*}
+    X_* = U_*\diag(\lambda_1,\dots,\lambda_p)U_*^T,
+  \end{align*}
+  where $U_*$ is a orthonormal matrix and $\lambda_1\geq \dots\geq \lambda_p$. We can define a projection matrix $X_0$ from $X_*$ as
+  \begin{align*}
+    X_0 = U_* \diag(\underbrace{1,\dots,1}_q,\underbrace{0,\dots,0}_{p-q})U_*^T. 
+  \end{align*}
+  Denote the corresponding fixed point of $\tilde S = g_{X_0}(\tilde S)$ as $\tilde S_0$. Let us further denote the optimal value of \eqref{eq:optimization} as $\alpha$. Clearly, $X_0$ lies in the feasible set of the optimization problem \eqref{eq:optimization2}. Therefore,
+  $    \tr(\tilde S_0Y)\geq  \alpha.
+  $  On the other hand, since \eqref{eq:optimization5} is a relaxed problem, we have
+  $    \alpha \geq \tr(\tilde S_*Y). 
+  $  Therefore, we know the optimality gap of our heuristic solution is bounded by
+  \begin{align*}
+    \tr(\tilde S_0Y) -   \alpha\leq \tr(\tilde S_0Y)-\tr(\tilde S_*Y).
+  \end{align*}
+  Furthermore, if $X_*$ is indeed a projection matrix, then the optimality gap is $0$ and we solve \eqref{eq:optimization} exactly.
+%

@@ -1,0 +1,254 @@
+  \subsection{Identification algorithm}\label{sec:identification}
+  This subsection is devoted to providing a numerical algorithm for the adversary to derive $\mG(z)$ when $\mK(z)$ is full normal row rank, which is based on spectral factorization~\cite{Sayed:2001yu}. 
+  %       \ye{change} Given $\Phi_{y,u}(z)$, we can decompose the system to the following form 
+  %\begin{equation}
+  %	\Phi(z)=\mC(z) D\mC^*(z)=\mZ(z)+\mZ^T(-z),
+  %\end{equation}
+  %%	in which $\mZ(z)$ is the one-sided z-transform of $\mathbb{E}\{y(k) u(k)\}$
+  %in which $D=\begin{bmatrix} Q & 0 \\ 0 & R \end{bmatrix}$.
+
+  Since the feedback system is asymptotic stable, $\Phi_{y,u}(z)$ has no poles on the unit circle. Consider a Mobius transform $z=\frac{1+s}{1-s}$ and let $\Psi_{y,u}(s)=\Phi_{y,u}\left(\frac{1+s}{1-s}\right)$, then for $\Psi_{y,u}(s)$ there exists a positive real matrix $\mS(s)$ \cite{keith}, such that 
+  \begin{equation} \label{Zdef}
+    \mS(s) + \mS^T(-s) = \Psi(s)=\mW(s)\mW^T(-s).
+  \end{equation}
+
+  \begin{mydef}[Global Minimality]
+    For a given spectral density $\Psi(s)$, the globally-minimal degree is the smallest degree of all its spectral factors $\mW(s)$.
+  \end{mydef}
+
+  Any system of globally-minimal degree is said to be \emph{globally minimal}. Anderson \cite{anderson} provides an algebraic characterization of all realizations of all spectral factors as follows. Minimal realizations of $\mS$ are related to globally-minimal realizations of spectral factors of $\Psi$ by the following lemma.
+
+  \begin{lemma}[\cite{anderson}] \label{lemma:andlem}
+    Let $(A,B_s,C,D_s)$ be a minimal realization of the positive-real matrix $\mS(s)$ of \eqref{Zdef}, then the system $(A,B,C,D)$ is a globally-minimal realization of a spectral factor of $\Psi(s)$, i.e., $\mW(s)$ if and only if the following equations hold:
+    \begin{equation} \label{eq:and}
+      \begin{aligned}
+	RA^T + AR &= -BB^T\\
+	RC^T &= B_s - BD^T\\
+	2D_s &= DD^T
+      \end{aligned}
+    \end{equation}
+    \noindent for some positive-definite and symmetric matrix ${R\in \RR^{n \times n}}$.
+  \end{lemma}
+
+  For a properly chosen $R$, $\mW(s)$ can be computed from its realization. Since $\mW\left(\frac{z-1}{z+1}\right)=\mC(z)D^{1/2}J\triangleq \mC(z)\hat{D}$, for some signed identity matrix $J$ \cite{hayden}
+  \begin{equation}
+    \lim_{z\rightarrow\infty}\mW\left(\frac{z-1}{z+1}\right)=\begin{bmatrix} 0 & I \\
+      0 & 0 
+    \end{bmatrix} \hat{D}.
+  \end{equation}
+
+  We partition $\mW$ and $\hat{D}$ to four blocks with corresponding dimensions as $\mC$ in \eqref{eq:Cz}. Then it follows that 
+  \begin{equation}\label{eq:D22}
+    \hat{D}_{22}=\lim_{z\rightarrow\infty}\mW_{12}\left(\frac{z-1}{z+1}\right).
+  \end{equation}
+
+  Finally, once $\hat{D}_{22}$ is obtained, we can obtain an estimate closed-loop transfer function 
+  \begin{equation}\label{eq:estC}
+    \hat{\mC}(z)=\mW\left(\frac{z-1}{z+1}\right)\begin{bmatrix} I & 0 \\ 0 & \hat{D}^{-1}_{22}
+    \end{bmatrix},
+  \end{equation}
+  and the transfer functions for plant and controller, $\mG(z)$, $\mK(z)$ using \eqref{eq:khg}.
+
+  We summarize the identification procedure to the following Algorithm~\ref{alg:main}. 
+  %
+  %
+  %\begin{itemize}
+  %\item Each element in $\Psi[i,j](s)$ can be expanded as a sum of partial fractions and a term $\Psi[i,j](\infty)$. 
+  %\item Those partial fractions with poles in $Re[s] < 0$ may then be summed together, and when add to $\frac{1}{2}\Psi[i,j](\infty)$ yield the i-j entry of $\mZ(s)$.
+  %\item The sum of the partial fractions with poles in $Re[s] > 0$ and $\frac{1}{2}\Psi[i,j](\infty)$ yields the j-i entry of $\mZ(-s)$. 
+  %\end{itemize}
+
+  \begin{algorithm}
+    \caption{Identification algorithm for $\mG(z)$, $\mK(z)$}
+    \textbf{Inputs:} Input-output data $y_k$ and $u_k$.\\
+    \textbf{Outputs:} The transfer functions $\mG$ and $\mK$.	  
+    \begin{step}
+      Compute $\Phi_{y,u}(z)$ from input-output data $y_k$ and $u_k$ and let $\Psi_{y,u}(s)=\Phi_{y,u}(\frac{1+s}{1-s})$;	  
+    \end{step}
+    \begin{step}
+      Each element in $\Psi[i,j](s)$ can be expanded as a sum of partial fractions and a term $\Psi[i,j](\infty)$. Those partial fractions with poles in $Re[s] < 0$ may then be summed together, and when add to $\frac{1}{2}\Psi[i,j](\infty)$ yield $\mS[i,j](s)$;
+    \end{step}
+    \begin{step}
+      Compute $\mW(s)$ from \eqref{eq:and} for a minimal realization of $\mS(s)$ and a properly chosen $R\succeq0$.
+    \end{step}
+    \begin{step}
+      Compute $\hat{D}_{22}$ based on $\mW\left(\frac{z-1}{z+1}\right)$ from \eqref{eq:D22}.
+    \end{step} 
+    \begin{step}
+      Once an estimate $\hat{\mC}(z)$ is computed using \eqref{eq:estC} and we can obtain $\mG(z)$ and $\mK(z)$ using \eqref{eq:khg}.
+    \end{step}
+    \label{alg:main}
+  \end{algorithm}
+
+  \begin{remark}
+    Since the main theme of this paper is to bring up the potential security issue in the classic feedback systems and propose a new control architecture which is robust to such attacks, the following numerical issues in spectral factorization are out of the scope of this paper, i..e., how the estimate of $\Phi_{y,u}(z)$ depends on the number of samples and how this error would propagate into the identification of $\mG(z)$ and $\mK(z)$. 
+  \end{remark}
+  %
+  %	\subsection{Identifiability of $(A,B,C)$}
+  %	Once $\mG(z)$ and $\mK(z)$ are uniquely determined from data, the next question is whether the attacker is able to obtain the state-space model. From a modelling perspective, the state-space carries more information about the underlying physics. 
+  %
+  %	\begin{mydef}
+  %	  Given the spectrum $\Phi_{y,u}(z)$ generated by input-output data, we shall say $$\Pi\triangleq\left(A,B,C, K, L, U, R, S,P \right)$$ are admissible to $\Phi_{y,u}$ if $\Pi$ is consistent to the prior knowledge and has spectrum $\Phi_{y,u}$ following the computation above. 
+  %	\end{mydef}
+  %
+  %	\begin{mydef}
+  %	  We say the feedback system $(A,B,C)$ is identifiable from the input-output data $(y,u)$ if any admissible $$\hat{\Pi}=\left(\hat{A},\hat{B},\hat{C}, \hat{K}, \hat{L}, \hat{U}, \hat{R}, \hat{S},\hat{P} \right)$$ has $\hat{A}=A$, $\hat{B}=B$ and $\hat{C}=C$.
+  %	\end{mydef}
+  %
+  %	\begin{myass}
+  %	  Assume that the state-space model $(A,B,C)$ is both controllable and observable and therefore minimal.
+  %	\end{myass}
+  %
+  %	In this section, the identifiability of the state-space model shall be investigated. This differs from close-loop system identification in the sense that the attacker has extra information that the controller knows the plant dynamics as well as uses a predefined control strategy. Once the attacker has learned $\mG(z)$, $\mH(z)$ and $\mK(z)$ with the following form 
+  %	\begin{align}
+  %	  \mG(z)&=C(zI-A)^{-1}B,\\
+  %	  \mH(z)&=C(zI-A)^{-1}V_{11},\\
+  %	  \mK(z)&=K(zI-A+BK+LC)^{-1}L,
+  %	\end{align}
+  %	the next step is to determine whether the state-space can be uniquely identified from $\mG(z)$ and $\mK(z)$. If not, what is the ``minimal'' additional information that is needed to make state-space realization identifiable. 
+  %
+  %	Starting from a transfer function $\mG$, we can obtain the system matrices up to a symmetric transformation 
+  %	\begin{align*}
+  %	  \hat{A}=T^{-1}AT,~\hat{B}=T^{-1}B,~\hat{C}=CT,
+  %	\end{align*}
+  %	in which $T\in GL(n)$.
+  %	
+  %	\ye{I am here and will continue tomorrow}
+  %	\begin{proposition}\label{prop:mK}
+  %	Given the closed-loop system with LQG controller, given a state-space realization of $\mG(z)$: $\left(\hat{A},\hat{B},\hat{C}\right)$ and there only exists a realization of $\mK(z)$,  
+  %	\end{proposition}
+  %	\begin{proof}
+  %	A realization of $\mK(z)$ has the following form (let $\hat{X}\triangleq \hat{A}+\hat{B}\hat{K}+\hat{L}\hat{C}$)
+  %	\begin{align*}
+  %	  \bar{X}=T_1^{-1}\hat{X}T_1,~\bar{L}=T_1^{-1}\hat{L},~\bar{K}=\hat{K}T_1,
+  %	\end{align*}
+  %for some $T_1\in GL(n)$. If we were able to solve $T_1$, then we shall be able to obtain 	
+  %
+  %  This is equivalent to have 
+  %	\begin{equation}
+  %	\begin{aligned}
+  %	\hat{X}&=W^{-1}(\hat{A}+\hat{B}\hat{K}W^{-1}+W\hat{L}\hat{C})W\\
+  %	&=W^{-1}\hat{A}W+ W^{-1}\hat{B}\hat{K}+\hat{L}\hat{C}W.
+  %	\end{aligned}
+  %	\end{equation}
+  %	
+  %	Given $\left(\hat{A},\hat{B},\hat{C}\right)$
+  %	
+  %	
+  %	
+  %	\end{proof}
+  %	
+  %	
+  %
+  %	\begin{proposition}\label{prop:t}
+  %	  Assume the feedback control system uses the LQG control strategy, using the estimated $\hat{A}, \hat{B}, \hat{C}$, then the attacker can identify $\hat{K}, \hat{L}, \hat{U},\hat{R}, \hat{S},\hat{P}$ with the following form
+  %	  \begin{align*}
+  %	    \hat{K}=KT,~\hat{L}=T^{-1}L,~\hat{R}=R,~\hat{U}=U,\\
+  %	    \hat{S}=T^{-T}ST^{-1},~\hat{P}=TPT^T.
+  %	  \end{align*}
+  %	\end{proposition}
+  %	\begin{proof}
+  %	  This can be easily shown from the definition.
+  %	\end{proof}
+  %
+  %\begin{remark}
+  %	The attacker can identify $R$ from the spectral factorization and $U$.
+  %\end{remark}
+  %
+  %	\begin{theorem}\label{thm:abc}
+  %	  Given the feedback control system defined in previous sections, assume the attacker has identified $R$ using spectral factorization in previous section and there does not exist $T\in GL(n)$ such that 
+  %	  \begin{align}
+  %	    TQT^T=Q,\\
+  %	    TWT^T=W,
+  %	  \end{align}
+  %	  then the attacker would be able to identify $(A,~B,~C)$.
+  %	\end{theorem}
+  %	\begin{proof}
+  %	  It follows from definitions.
+  %	\end{proof}
+  %
+  %
+  %	\begin{corollary}\label{coro:}
+  %	  If $Q$ and $W$ satisfy that $Q^{-1/2}WQ^{-1/2}\neq kI$ for any $k\in\mathbb{R}$, then there is a unique solution to the identification problem. 
+  %	\end{corollary}
+  %	\begin{proof}
+  %	  Since $Q$ is positive definite, let $\bar{T}=Q^{-1/2}TQ^{1/2}$, 
+  %	  \begin{align}
+  %	    \bar{T}\bar{T}^T&=I\\
+  %	    \bar{T}Q^{-1/2}WQ^{-1/2}\bar{T}^T &=Q^{-1/2}WQ^{-1/2}, 
+  %	  \end{align}
+  %	  then $\bar{T}$ is a unitary matrix. Let $M\triangleq Q^{-1/2}WQ^{-1/2}$, then $M$ is a diagonal matrix satisfying $\bar{T}M\bar{T}^T=M$. In this case $\bar{T}M\bar{T}^T=\sum_{i}M[i,i]t_it_i^T=M.$
+  %
+  %	  Let $\bar{T}=\begin{bmatrix}
+  %	    t_1 & t_2 & \ldots & t_n
+  %	  \end{bmatrix},$ since $\bar{T}$ is unitary then $t^T_it_i=1$ and $t_i^Tt_j=0$ for $i\neq j$, then we right multiply $t_i$ at both sides of the equation and obtain   
+  %	  \begin{equation}
+  %	    M[i,i]t_i=Mt_i, ~\Leftrightarrow M[i,i]t_i[j]=M[j,j]t_i[j] \forall i, j,
+  %	  \end{equation}
+  %	  which can easily lead to $M[i,i]=c,~\forall i$ since $\forall i$, $t_i[j]$ can not be $0$ for all $j$.
+  %	\end{proof}
+  %
+  %	\begin{remark}
+  %	  Both the plant $\mG$ including the state-space model $(A,B,C)$ and the LQG controller $\mK$ are identifiable under certain assumptions. Here is a table that  summaries the different assumptions.
+  %	\end{remark}
+  %	
+  %\begin{table}[b]
+  %\centering
+  %\begin{tabular}[htbp]{| c | c | c  | }
+  %\hline
+  %State & Identifiable & Identifiability condition \\ \hline
+  %$\mH$ & $\mH$ & $x_6$   \\ \hline
+  %$\mG$ & Yes &  $x_7$ \\ \hline
+  %$\mK$ & Yes & $x_{15}$ \\\hline
+  %\end{tabular}
+  %\caption{A summary of identifiability conditions.}
+  %\label{table:summary}
+  %\end{table}
+  %
+%  %	\subsection{Identification procedure}
+%  %	This section shall propose an algorithm that takes $\Phi_{y,u}$ to the $(A,B,C)$. Once the identifiability of $\mG$ and $\mK$ and $(A,B,C)$ have been guaranteed, an identification algorithm shall be proposed to obtain $\mG(z)$ and $\mH(z)$ and return $(A,B,C)$. 
+%  %
+%  %
+%  %	Some observations for understanding the proposed algorithm
+%  %	\begin{itemize}
+%  %	  \item $Q^{-1/2}WQ^{-1/2}=Q^{-1}W$ since both $Q$ and $W$ are diagonal;
+%  %	  \item $\bar{T}=Q^{-1/2}TQ^{1/2}$ \ye{can we get $T$ from $\bar{T}$?}
+%  %	\end{itemize}
+%  %
+%  %
+%  %
+%  %	\begin{algorithm}
+%  %	  \caption{Identification algorithm for $\mG$, $\mK$ and $(A,B,C)$ for input-output data}
+%  %	  \textbf{Inputs:} Input-output data $y_k$ and $u_k$.\\
+%  %	  \textbf{Outputs:} The transfer functions $\mG$ and $\mH$ and state-space realization $(A,B,C)$.
+%  %	  \begin{step}
+%  %	    Compute $\Phi_{y,u}(z)$ from data;
+%  %	  \end{step}
+%  %	  \begin{step}
+%  %	    Factorize $\Phi_{y,u}$ and compute a stable, minimum-phase transfer matrix $\mC(z)$;
+%  %	  \end{step}
+%  %	  \begin{step}
+%  %	    Compute $\mG(z)$, $\mK(z)$ from eq.~\eqref{eq:khg};
+%  %	  \end{step}
+%  %	  \begin{step}
+%  %	    Find a minimal realization $(A_1, B_1, C_1)$ of $\mG(z)$;
+%  %	  \end{step}
+%  %	  \begin{step}
+%  %	    Compute the corresponding parameters in the controller $\Pi_1$ from the defition;
+%  %	  \end{step}
+%  %	  \begin{step}
+%  %	    Compute $M_1=Q_1^{-1}W_1$ and obtain a unitary matrix $T_1=Q^{1/2}T_2Q^{-1/2}$ from a Takagi decomposition of $M_1$ as follows $M_1=T_2MT_2^T$, in which $M$ is a diagonal matrix and positive definite; 
+%  %	  \end{step}
+%  %	  \begin{step}
+%  %	    Obtain $(A,B,C)$ from the following 
+%  %	    \begin{equation}
+%  %	      A=T_1^{-1}A_1T_1,~B=T_1^{-1}B_1,~C=C_1T_1. 
+%  %	    \end{equation}
+%  %	  \end{step}
+%  %	\end{algorithm}
+%  %	\begin{lemma}[Takagi decomposition]
+%  %	  For a symmetric matrix $A$, it can be decompose to $A=VDV^T$ where $D$ is a non-negative matrix 
+%  %	\end{lemma}
+%  %	
+%  %	\ye{code up}
+
