@@ -1,0 +1,21 @@
+  \begin{algorithm}
+    \caption{Identification algorithm for $\mG(z)$, $\mK(z)$}
+    \textbf{Inputs:} Input-output data $y_k$ and $u_k$.\\
+    \textbf{Outputs:} The transfer functions $\mG$ and $\mK$.	  
+    \begin{step}
+      Compute $\Phi_{y,u}(z)$ from input-output data $y_k$ and $u_k$ and let $\Psi_{y,u}(s)=\Phi_{y,u}(\frac{1+s}{1-s})$;	  
+    \end{step}
+    \begin{step}
+      Each element in $\Psi[i,j](s)$ can be expanded as a sum of partial fractions and a term $\Psi[i,j](\infty)$. Those partial fractions with poles in $Re[s] < 0$ may then be summed together, and when add to $\frac{1}{2}\Psi[i,j](\infty)$ yield $\mS[i,j](s)$;
+    \end{step}
+    \begin{step}
+      Compute $\mW(s)$ from \eqref{eq:and} for a minimal realization of $\mS(s)$ and a properly chosen $R\succeq0$.
+    \end{step}
+    \begin{step}
+      Compute $\hat{D}_{22}$ based on $\mW\left(\frac{z-1}{z+1}\right)$ from \eqref{eq:D22}.
+    \end{step} 
+    \begin{step}
+      Once an estimate $\hat{\mC}(z)$ is computed using \eqref{eq:estC} and we can obtain $\mG(z)$ and $\mK(z)$ using \eqref{eq:khg}.
+    \end{step}
+    \label{alg:main}
+  \end{algorithm}
