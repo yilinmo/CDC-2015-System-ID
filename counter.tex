@@ -8,53 +8,6 @@
   \end{equation}
   Hence, $u(k) = \mathcal K(z) y(k) =  F \tilde u(k)$. The factorization on $\mK(z)$ implies the CPS diagram illustrated in Fig~\ref{fig:factorization}.
 
-  \begin{figure}[ht]
-    \begin{center}
-      \begin{tikzpicture}[>=stealth',
-	box/.style={rectangle, draw=blue!50,fill=blue!20,rounded corners, semithick,minimum size=7mm},
-	point/.style={coordinate},
-	every node/.append style={font=\small}
-	]
-	\matrix[row sep = 5mm, column sep = 5mm]{
-	%first row
-	\node (p1) [] {$w(k)$};
-	& \node (noisetransfer) [box] {$\mathcal H(z)$};
-	& 
-	&\node (p2) [point] {};
-	&\\
-	%second row
-	\node (p3) [point] {};
-	&\node (plant) [box] {$\mathcal G(z)$};
-	& 
-	& \node (plus) [circle,draw,inner sep=2pt] {};
-	& \node (p5) [point] {};\\
-	%third row
-	&
-	& 
-	& \node (p6) [] {$v(k)$};
-	& \\
-	%fourth row
-	\node (p7) [point] {};
-	&\node (F) [box] {$F$};
-	&
-	& \node (controller) [box] {$\tilde \mK (z)$};
-	& \node (p8) [point] {};\\
-	};
-	\draw [semithick,->] (p1)--(noisetransfer);
-	\draw [semithick,->] (noisetransfer)--(p2)--(plus);
-	\draw [semithick,->] (p6)--(plus);
-	\draw [semithick,->] (plant)--(plus);
-	\draw [semithick,->] (plus)--(p5)-- node[midway,right]{$y(k)$} (p8) -- (controller);
-	\draw [semithick,->] (controller)-- node[midway,above]{$\tilde u(k)$} (F);
-	\draw [semithick,->] (F)--(p7)-- node[midway,left]{$u(k)$}(p3)--(plant);
-	\draw [semithick] (plus.north)--(plus.south);
-	\draw [semithick] (plus.east)--(plus.west);
-      \end{tikzpicture}
-    \end{center}
-    \caption{The diagram of the CPS with a low-rank controller design, where $\mK(z)$ is factorized into $F\tilde \mK(z)$.}
-    \label{fig:factorization}
-  \end{figure}
-
   Since we are restricting ourselves to use a low-rank controller, the performance of the system may not be optimal. In this section, we consider the problem of optimizing the following infinite horizon LQG performance:
   \begin{equation}
     J = \limsup_{T\rightarrow \infty}\frac{1}{T}\min_{u(k)}\mathbb{E}\left[\sum_{k=0}^{T-1} x(k)^TWx(k)+u(k)^TUu(k)\right],
