@@ -66,13 +66,13 @@ Since we assume that the closed-loop system is asymptotically stable, $\left[\be
 
   \begin{proposition}\label{prop:feedback}
     Given $\mC(z)$, the following transfer functions can be uniquely specified :
-    \begin{equation}\label{eq:khg}
-      \begin{aligned}
-	\mK(z)&=\mC_{22}(z)\mC^{-1}_{12}(z),\\
-	\mH(z)&= \mC^{-1}_{12}(z)\mC_{11}(z),\\
+
+      \begin{align}
+	\mK(z)&=\mC_{22}(z)\mC^{-1}_{12}(z),\nonumber\\
+	\mH(z)&= \mC^{-1}_{12}(z)\mC_{11}(z),\nonumber\\
 	\mG(z)\mK(z)&=I-\mC^{-1}_{12}(z).
-      \end{aligned}
-    \end{equation}
+	\label{eq:khg}
+      \end{align}
     If $\mK(z)$ has full normal row rank then $\mG(z)$ can be uniquely determined from the following equality
     \begin{equation}
       \mG(z)=(I-\mC^{-1}_{12}(z))\mK^{\dagger}(z),
